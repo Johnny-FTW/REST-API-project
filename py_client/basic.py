@@ -1,7 +1,10 @@
 import requests
 
-endpoint = "https://httpbin.org/anything"
+# endpoint = "https://httpbin.org/anything"
 
-response = requests.get(endpoint)
+endpoint = "http://localhost:8000/"
 
-print(response.text)
+response = requests.get(endpoint, data={"query":"Hello world"})
+
+# print(response.text)
+print(response.status_code)
