@@ -1,20 +1,18 @@
+
 from django.shortcuts import render
 from django.http import JsonResponse
 import json
+from django.forms.models import model_to_dict
+from products.models import Product
+
 # Create your views here.
+
+# json response arg = dict, http arg = str
 
 
 def api_home(request, *args, **kwargs):
-    print(request.GET)
-    print(request.POST)
-    body = request.body # byte str of json
-    data = {}
-    try:
-        data = json.loads(body) #str json -> py dic
-    except:
-        pass
-    print(data)
-    # data['headers'] = request.headers
-    data['content_type'] = request.content_type
-
+    model_data = Product.objects.all().order_by("?").first()
+    data= {}
+    if model_data:
+        data = model_to_dict(model_data, fields=['id', 'title', 'price'])
     return JsonResponse(data)
