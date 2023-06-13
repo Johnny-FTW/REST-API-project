@@ -5,6 +5,8 @@ import json
 
 
 def api_home(request, *args, **kwargs):
+    print(request.GET)
+    print(request.POST)
     body = request.body # byte str of json
     data = {}
     try:
@@ -12,5 +14,7 @@ def api_home(request, *args, **kwargs):
     except:
         pass
     print(data)
-    data['headers'] = request.headers
+    # data['headers'] = request.headers
+    data['content_type'] = request.content_type
+
     return JsonResponse(data)
