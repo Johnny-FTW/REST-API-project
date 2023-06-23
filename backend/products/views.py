@@ -6,6 +6,8 @@ from rest_framework.response import Response
 from .models import Product
 from .permissions import IsStaffEditorPermission
 from .serializers import ProductSerializer
+from api.authentication import TokenAuthentication
+
 
 # Create your views here.
 
@@ -15,7 +17,7 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = ProductSerializer
     authentication_classes = [
         authentication.SessionAuthentication,
-        authentication.TokenAuthentication
+        TokenAuthentication
     ]
     permission_classes = [permissions.IsAdminUser, IsStaffEditorPermission]
 
