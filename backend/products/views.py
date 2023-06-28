@@ -50,6 +50,7 @@ class ProductDeleteAPIView(StaffEditorPermissionMixin, generics.DestroyAPIView):
 class CreateAPIView:
     pass
 
+
 class ProductMixinView(mixins.CreateModelMixin, mixins.ListModelMixin, mixins.RetrieveModelMixin, generics.GenericAPIView):
 
     queryset = Product.objects.all()
