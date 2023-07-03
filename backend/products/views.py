@@ -15,12 +15,20 @@ class ProductListCreateAPIView(StaffEditorPermissionMixin, generics.ListCreateAP
     serializer_class = ProductSerializer
 
     def perform_create(self, serializer):
-
         title = serializer.validated_data.get('title')
         content = serializer.validated_data.get('content')
         if content is None:
             content = title
-        serializer.save(content=content)
+        serializer.save(user=self.request.user, content=content)
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super().get_queryset(*args, **kwargs)
+        request = self.request
+        user = request.user
+        if not user.is_authenticated:
+            return Product.objects.none()
+        # print(request.user)
+        return qs.filter(user=request.user)
 
 
 class ProductDetailAPIView(StaffEditorPermissionMixin, generics.RetrieveAPIView):
