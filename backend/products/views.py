@@ -15,6 +15,7 @@ class ProductListCreateAPIView(StaffEditorPermissionMixin, generics.ListCreateAP
     serializer_class = ProductSerializer
 
     def perform_create(self, serializer):
+
         title = serializer.validated_data.get('title')
         content = serializer.validated_data.get('content')
         if content is None:
@@ -73,7 +74,6 @@ class ProductMixinView(mixins.CreateModelMixin, mixins.ListModelMixin, mixins.Re
         if content is None:
             content = "vlwevweionviowenv"
         serializer.save(content=content)
-
 
 
 @api_view(['GET', 'POST'])
